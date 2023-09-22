@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,13 @@ namespace WinApi_22._09._23
         public MainWindow()
         {
             InitializeComponent();
+        }
+        [DllImport("user32.dll")]
+        static extern int MessageBox(IntPtr hWnd, String text, String caption, int options);
+
+        private void Click_click(object sender, RoutedEventArgs e)
+        {
+            MessageBox(IntPtr.Zero, "Hello World", "My Massage", 0);
         }
     }
 }
