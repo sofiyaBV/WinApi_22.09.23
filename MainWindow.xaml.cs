@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WinApi_22._09._23
 {
@@ -28,21 +18,29 @@ namespace WinApi_22._09._23
       
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName,   string lpWindowName);
-      
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, string lParam);
+        private IntPtr notepadHandle;
+        private Timer timer;
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            string currentTime = DateTime.Now.ToString("HH:mm:ss"); 
+            SendMessage(notepadHandle, 0x000C, IntPtr.Zero, currentTime);
+        }
         private void Click_click(object sender, RoutedEventArgs e)
         {
-            IntPtr notepadHandle = FindWindow("Notepad", null);
-            if (notepadHandle  != IntPtr.Zero) {
-                SendMessage(notepadHandle, 0x0010, IntPtr.Zero, IntPtr.Zero);
-               MessageBox.Show("Вікно Блокнот закрито.");
-            }
-            else
+            notepadHandle = FindWindow("Notepad", null);
+            if (notepadHandle == IntPtr.Zero)
             {
-               MessageBox.Show("Вікно Блокнот не знайдено.");
+                MessageBox.Show("Вікно Блокнота не знайдено.");
+                Close();
             }
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1); 
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
     }
 }
