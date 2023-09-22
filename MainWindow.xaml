@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Label x:Name="messageLabel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,10,0" Content="Вгадайте число від 0 до 100."/>
+        <TextBox x:Name="guessTextBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,40,10,0" Width="100"/>
+        <Button x:Name="guessButton" Content="Вгадати" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,70,10,0" Width="75" Click="GuessButton_Click"/>
+        <Label x:Name="resultLabel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,100,10,0" Content="Спроби: 0"/>
+        <Button x:Name="newGameButton" Content="Нова гра" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,130,10,0" Width="75" Click="NewGameButton_Click"/>
     </Grid>
 </Window>
