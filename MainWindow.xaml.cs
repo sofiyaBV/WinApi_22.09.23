@@ -34,14 +34,14 @@ namespace WinApi_22._09._23
 
         private void Click_click(object sender, RoutedEventArgs e)
         {
-            IntPtr notepadHandle = FindWindow(null, "Calculator");
+            IntPtr notepadHandle = FindWindow("Notepad", null);
             if (notepadHandle  != IntPtr.Zero) {
                 SendMessage(notepadHandle, 0x0010, IntPtr.Zero, IntPtr.Zero);
-               MessageBox.Show("Вікно калькулятор закрито.");
+               MessageBox.Show("Вікно Блокнот закрито.");
             }
             else
             {
-               MessageBox.Show("Вікно калькулятор не знайдено.");
+               MessageBox.Show("Вікно Блокнот не знайдено.");
             }
         }
     }
